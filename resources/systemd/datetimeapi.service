@@ -1,0 +1,15 @@
+Description=Gunicorn instance to serve datetimeapi
+After=network.target
+
+[Service]
+User=YOUR_USERNAME
+Group=www-data
+WorkingDirectory=/home/YOUR_USERNAME/datetimeapi
+Environment='APP_SECRET_KEY=YOUR_SECRET_KEY'
+Environment='JWT_SECRET_KEY=YOUR_JSON_WEB_TOKEN_SECRET_KEY'
+Environment='JWT_REFRESH_KEY=YOUR_REFRESH_JSON_WEB_TOKEN_SECRET_KEY'
+Environment='SQL_DATABASE_URI=mysql+pymysql://datetimeapi:YOUR_MYSQL_PASSWORD@localhost:3306/datetimeapi'
+ExecStart=/bin/bash -c 'cd /home/YOUR_USERNAME/datetimeapi && source /home/ubuntu/miniconda3/bin/activate datetimeapi && gunicorn --workers 3 --bind unix:datetimeapi.sock -m 007 wsgi:app'
+
+[Install]
+WantedBy=multi-user.target

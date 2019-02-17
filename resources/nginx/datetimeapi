@@ -1,0 +1,8 @@
+server {
+    server_name datetimeapi.YOUR-DOMAIN.com www.datetimeapi.YOUR-DOMAIN.com;
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/YOUR_USERNAME/datetimeapi/datetimeapi.sock;
+    }
+}
